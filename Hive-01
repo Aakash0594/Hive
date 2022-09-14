@@ -1,0 +1,9 @@
+#check present working directory
+$ pwd
+/home/cloudera
+
+#Create directory in current directory
+$ mkdir HivePracticeFiles
+
+#list files and folders in current directory
+$ ls
