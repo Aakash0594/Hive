@@ -8,5 +8,51 @@ $ mkdir HivePracticeFiles
 #list files and folders in current directory
 $ ls
 
+#Copy file to out work folder i.e. "HivePracticeFiles"  in local file system.
+$ cp depart_data.csv ./HivePracticeFiles/depart_data.csv
+
+#Move file to out work folder i.e. "HivePracticeFiles"  in local file system.
+$ mv depart_data.csv ./HivePracticeFiles/depart_data.csv
 
 
+
+$ hive
+hive> use hive_class_b1;
+
+# Below table we will use to load data from local directory.
+hive> create table department_data                                                                                                            
+    > (                                                                                                                                       
+    > dept_id int,                                                                                                                            
+    > dept_name string,                                                                                                                       
+    > manager_id int,                                                                                                                         
+    > salary int)                                                                                                                             
+    > row format delimited                                                                                                                    
+    > fields terminated by ',';
+
+hive> describe department_data;
+hive> describe formatted department_data;
+
+# For data load from local
+hive> load data local inpath 'file:///home/cloudera/HivePracticeFiles/depart_data.csv' into table department_data; 
+
+# To copy file from local file system to hdfs
+$ hadoop fs -mkdir /tmp/hive_data_class
+$ hadoop fs -put /home/cloudera/HivePracticeFiles/depart_data.csv /tmp/hive_data_class
+$ hadoop fs -ls /tmp/hive_data_class
+
+# Below table we will use to load data from hdfs.
+hive> create table department_data_from_hdfs
+    > (
+    > dept_id int,
+    > dept_name string,
+    > manager_id int,
+    > salary int
+    > )
+    > row format delimited
+    > fields terminated by ',';
+    
+ hive> describe department_data_from_hdfs;
+ 
+ hive> load data inpath '/tmp/hive_data_class/' into table department_data_from_hdfs;
+ hive> select * from department_data_from_hdfs;
+ 
