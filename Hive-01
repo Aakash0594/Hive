@@ -56,3 +56,32 @@ hive> create table department_data_from_hdfs
  hive> load data inpath '/tmp/hive_data_class/' into table department_data_from_hdfs;
  hive> select * from department_data_from_hdfs;
  
+ 
+ 
+ # Create external table 
+
+create external table department_data_external                                                                                          
+    > (                                                                                                                                       
+    > dept_id int,                                                                                                                            
+    > dept_name string,                                                                                                                       
+    > manager_id int,                                                                                                                         
+    > salary int                                                                                                                              
+    > )                                                                                                                                       
+    > row format delimited                                                                                                                    
+    > fields terminated by ','                                                                                                                
+    > location '/tmp/hive_data_class_2/'; 
+    
+    
+    
+# work with Array data types
+
+create table employee                                                                                                                   
+    > (                                                                                                                                       
+    > id int,                                                                                                                                 
+    > name string,                                                                                                                            
+    > skills array<string>                                                                                                                    
+    > )                                                                                                                                       
+    > row format delimited                                                                                                                    
+    > fields terminated by ','                                                                                                                
+    > collection items terminated by ':'; 
+ 
